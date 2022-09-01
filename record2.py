@@ -113,6 +113,8 @@ if __name__ == "__main__":
         if time.time() -T_start > RECORD_LENGTH:
             cv2.putText(c,str(RECORD_LENGTH+5-int(time.time()-T_start)),(240,320), cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 4,(0,0,255),2,cv2.LINE_AA)
         cv2.imshow('COLOR IMAGE',c)
+        d = d/3000.0000
+        cv2.imshow('depth_img', d)
 
 
 
