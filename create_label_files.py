@@ -24,6 +24,7 @@ from tqdm import trange
 from scipy.optimize import minimize
 from config.registrationParameters import *
 import json
+import random
 
 def get_camera_intrinsic(folder):
     with open(folder+'intrinsics.json', 'r') as f:
@@ -134,7 +135,10 @@ if __name__ == "__main__":
             filename = path_transforms + "/"+ str(i*LABEL_INTERVAL)+".npy"
             np.save(filename, T)
             
-            sample_points = mesh_copy.sample(10000)
+            dellist = [j for j in range(0, len(mesh_copy.vertices))]
+            dellist = random.sample(dellist, len(mesh_copy.vertices) - 10000)
+            sample_points = np.delete(mesh_copy.vertices, dellist, axis=0)
+            # sample_points = mesh_copy.sample(10000)
             masks = compute_projection(sample_points,K)
             masks = masks.T
 
@@ -151,7 +155,7 @@ if __name__ == "__main__":
    
             thresh = cv2.threshold(image_mask, 30, 255, cv2.THRESH_BINARY)[1]
     
-            _, contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
+            contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
                                               cv2.CHAIN_APPROX_SIMPLE)
             cnt = max(contours, key=cv2.contourArea)
     

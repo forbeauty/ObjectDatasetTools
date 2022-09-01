@@ -27,5 +27,5 @@ LABEL_INTERVAL = 1
 
 # specify the frenquency of segments used in mesh reconstruction
 
-RECONSTRUCTION_INTERVAL = 10
+RECONSTRUCTION_INTERVAL = 2
 

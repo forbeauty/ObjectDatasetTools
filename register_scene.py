@@ -35,7 +35,7 @@ max_correspondence_distance_fine = voxel_size * 1.5
 voxel_Radius = VOXEL_R
 
 # Point considered an outlier if more than inlier_Radius away from other points  
-inlier_Radius = voxel_Radius * 2.5
+inlier_Radius = voxel_Radius * 5
 
 # search for up to N frames for registration, odometry only N=1, all frames N = np.inf
 N_Neighbours = K_NEIGHBORS
@@ -114,6 +114,7 @@ def load_pcds(path, downsample = True, interval = 1):
         cad = cv2.cvtColor(cad, cv2.COLOR_BGR2RGB)
         depth_file = path + 'depth/%s.png' % (Filename*interval)
         reader = png.Reader(depth_file)
+        print(img_file, depth_file)
         pngdata = reader.read()
         depth = np.array(tuple(map(np.uint16, pngdata[2])))
         mask = depth.copy()
